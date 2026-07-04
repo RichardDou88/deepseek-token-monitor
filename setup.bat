@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 chcp 65001 >nul
 title Token Monitor 安装
 echo ======================================
@@ -32,7 +32,7 @@ if errorlevel 2 goto skip_auto
 set STARTUP_DIR=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 set SHORTCUT=%STARTUP_DIR%\TokenMonitor.lnk
 
-powershell -Command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%SHORTCUT%');$s.TargetPath='%~dp0start.bat';$s.WorkingDirectory='%~dp0';$s.WindowStyle=7;$s.Description='DeepSeek Token Monitor';$s.Save()"
+powershell -Command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%SHORTCUT%');$s.TargetPath='%~dp0start.bat';$s.WorkingDirectory='%~dp0';$s.WindowStyle=7;$s.Description='Token Monitor';$s.Save()"
 
 echo [OK] 已添加开机自启
 echo       快捷方式: %SHORTCUT%
