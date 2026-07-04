@@ -1,0 +1,11 @@
+﻿{
+  "title": "DeepSeek Token Monitor",
+  "description": "实时监控 DeepSeek API Token 消耗量、费用、缓存命中率。支持深浅主题、每日环比对比。⚠️ 需下载后端服务（见详情），配置后自动跳转完整壁纸界面。",
+  "type": "web",
+  "file": "wallpaper.html",
+  "preview": "preview.png",
+  "tags": ["Utility", "Technology", "Minimalist", "Data"],
+  "visibility": "public",
+  "contentrating": "Everyone",
+  "approved": false
+}

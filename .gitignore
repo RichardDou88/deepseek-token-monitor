@@ -1,0 +1,4 @@
+﻿# 敏感文件
+server/providers.json
+*.log
+node_modules/
