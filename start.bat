@@ -1,16 +1,15 @@
 @echo off
-chcp 65001 >nul
 title Token Monitor
 cd /d "%~dp0server"
 
 tasklist /FI "WINDOWTITLE eq Token Monitor" 2>NUL | find /I /N "node.exe">NUL
 if "%ERRORLEVEL%"=="0" (
-    echo æœåŠ¡å·²åœ¨è¿è¡Œ: http://localhost:3000
+    echo ·şÎñÒÑÔÚÔËĞĞ: http://localhost:3000
     timeout /t 3
     exit
 )
 
-echo å¯åŠ¨ Token Monitor åç«¯...
+echo Æô¶¯ Token Monitor ºó¶Ë...
 start "Token Monitor" /MIN node server.js
-echo åç«¯å·²å¯åŠ¨: http://localhost:3000
+echo ºó¶ËÒÑÆô¶¯: http://localhost:3000
 timeout /t 3
