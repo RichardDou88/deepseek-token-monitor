@@ -1,52 +1,296 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Token Wallpaper</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body,html{width:100%;height:100%;overflow:hidden;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#060810;color:#e0e4f0}
-.offline{display:flex;align-items:center;justify-content:center;height:100vh;text-align:center}
-.card{background:rgba(22,28,48,0.95);border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:44px 52px;max-width:480px}
-.card .icon{font-size:3.5rem;margin-bottom:16px}
-.card h1{font-size:1.6rem;color:#818cf8;margin-bottom:8px}
-.card .sub{font-size:.9rem;color:#9ca3af;margin-bottom:28px;line-height:1.6}
-.card .steps{text-align:left;background:rgba(15,20,40,0.8);border-radius:12px;padding:20px 24px;margin-bottom:20px}
-.card .steps p{font-size:.78rem;color:#a5b4fc;line-height:2.2}
-.card .steps span{display:inline-block;width:20px;height:20px;background:#6366f1;color:#fff;border-radius:50%;text-align:center;line-height:20px;font-size:.7rem;margin-right:8px}
-.card .link{font-size:.75rem;color:#6366f1;word-break:break-all;margin-top:12px}
-.card .status{font-size:.7rem;color:#4b5563;margin-top:16px}
-.card .dot{display:inline-block;width:6px;height:6px;background:#ef4444;border-radius:50%;animation:blink 2s infinite;margin-right:6px}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#a78bfa;--blue:#60a5fa;--orange:#fb923c;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--pink:#f9a8d4;--cyan:#67e8f9;--text:#eceef5;--muted:#7a8096;--card:rgba(22,28,48,.92);--border:rgba(100,110,160,.6)}
+[data-theme="light"]{--accent:#6d28d9;--blue:#2563eb;--orange:#c2410c;--green:#166534;--red:#b91c1c;--yellow:#92400e;--pink:#be185d;--cyan:#0e7490;--text:#1e293b;--muted:#64748b;--card:rgba(235,240,248,.92);--border:rgba(148,163,184,.5)}
+body{font-family:"SF Mono","JetBrains Mono","Cascadia Code","Consolas",monospace;background:#060810;transition:background .4s;color:var(--text);width:100vw;height:100vh;overflow:hidden;user-select:none;-webkit-user-select:none}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 55% 45% at 50% 30%,rgba(99,102,241,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 35% at 50% 70%,rgba(139,92,246,.04) 0%,transparent 50%)}
+[data-theme="light"] body{background:#e0e7f0}
+[data-theme="light"] body::before{background:radial-gradient(ellipse 55% 45% at 50% 30%,rgba(59,130,246,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 35% at 50% 70%,rgba(99,102,241,.03) 0%,transparent 50%)}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.main-container{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:22px max(3vw,36px);box-shadow:0 8px 32px rgba(99,102,241,.08),0 2px 8px rgba(0,0,0,.3)}
+.status-bar{position:fixed;top:20px;right:24px;z-index:2;display:flex;align-items:center;gap:10px;font-size:.62rem;color:var(--muted);background:var(--card);padding:8px 18px;border-radius:24px;border:1px solid var(--border);backdrop-filter:blur(12px)}
+.status-dot{width:8px;height:8px;border-radius:50%;transition:all .5s}
+.status-dot.online{background:var(--green);box-shadow:0 0 8px var(--green)}
+.status-dot.offline{background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse-red 2s ease-in-out infinite}
+.status-dot.expired{background:var(--yellow);box-shadow:0 0 8px var(--yellow);animation:pulse-yellow 2s ease-in-out infinite}
+.status-dot.reconnecting{background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse-cyan 1s ease-in-out infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes pulse-yellow{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes pulse-cyan{0%,100%{opacity:.5}50%{opacity:1}}
+.hero{text-align:center;min-width:min(560px,85vw)}
+.hero .provider{font-size:1rem;letter-spacing:.18em;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero .provider .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 4px var(--green)}50%{box-shadow:0 0 20px var(--green),0 0 30px rgba(74,222,128,.4)}}
+.hero .number{font-size:8.5rem;font-weight:120;line-height:1.05;background:linear-gradient(180deg,#f5f7ff 0%,#c8d0ff 45%,#a5adf5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 50px rgba(139,92,246,.45))}
+.hero .number-unit{font-size:1.4rem;color:var(--muted);margin-left:4px;vertical-align:super}
+.hero .label{font-size:.9rem;letter-spacing:.24em;color:var(--muted);margin-top:4px}
+.hero .sub-label{font-size:.65rem;color:var(--muted);margin-top:2px;opacity:.6}
+.hero .balance-row{font-size:.65rem;color:var(--muted);margin-top:6px;display:flex;gap:16px;justify-content:center}
+.metrics{display:flex;gap:28px;align-items:center;padding:16px 36px}
+.metrics2{display:flex;gap:16px;align-items:center;padding:10px 36px}
+.mg{display:flex;flex-direction:column;align-items:center;gap:6px}
+.mg .gl{font-size:.68rem;letter-spacing:.10em;color:var(--muted);text-transform:uppercase}
+.mr{display:flex;gap:24px;align-items:baseline}
+.m{text-align:center}
+.m .vv{font-size:1.7rem;font-weight:500;line-height:1.1}
+.m .vs{font-size:1.2rem;font-weight:500;line-height:1.1}
+.m .lb{font-size:.6rem;letter-spacing:.06em;color:var(--muted);margin-top:2px;text-transform:uppercase}
+.vd{width:1px;height:44px;background:rgba(100,110,160,.35)}
+.cache-bar-wrap{width:160px}
+.cache-bar{height:5px;border-radius:3px;background:rgba(45,50,70,.6);overflow:hidden;display:flex}
+.cache-bar .hit{background:var(--green);transition:width .8s ease}
+.cache-bar .miss{background:rgba(251,146,60,.5);transition:width .8s ease}
+.sync-row{display:flex;gap:12px;align-items:center;opacity:.6}
+.sync-row button{padding:6px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.68rem;font-family:inherit;transition:all .2s}
+.sync-row button:hover{color:var(--text);border-color:var(--accent)}
+.sync-row .synced{font-size:.58rem}
+.config-page{display:none;text-align:center;gap:20px}
+.config-page h2{font-size:1.6rem;font-weight:300;color:var(--text)}
+.config-page p{font-size:.82rem;color:var(--muted)}
+.config-page .fields{display:flex;flex-direction:column;gap:10px;align-items:center}
+.config-page input{width:360px;padding:11px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:.85rem;outline:none;text-align:center}
+.config-page input:focus{border-color:var(--accent)}
+.config-page .row{display:flex;gap:8px}
+.config-page .row input{width:115px}
+.config-page button{padding:10px 30px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s}
+.config-page button.secondary{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.toast{position:fixed;top:20px;right:20px;background:rgba(20,23,42,.9);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 16px;border-radius:8px;font-size:.68rem;z-index:2;opacity:0;transform:translateY(-20px);transition:all .3s;backdrop-filter:blur(12px)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+.daily-card{display:flex;gap:20px;align-items:center;padding:14px 36px;justify-content:center}
+.daily-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+.daily-item .dl{font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.daily-item .dv{font-size:1.3rem;font-weight:500;line-height:1.1}
+.daily-compare{font-size:.7rem;display:flex;align-items:center;gap:3px}
+.daily-up{color:var(--green)}
+.daily-down{color:var(--red)}
+.daily-flat{color:var(--muted)}
+.daily-first{font-size:.6rem;color:var(--yellow);font-style:italic}
+.daily-div{width:1px;height:36px;background:rgba(100,110,160,.35)}
+
+.hit-status{display:inline-flex;align-items:center;gap:5px;font-size:.58rem;letter-spacing:.04em;margin-top:3px}
+.hit-status .sd{width:6px;height:6px;border-radius:50%}
+.hit-status .sd.good{background:var(--green);box-shadow:0 0 6px var(--green)}
+.hit-status .sd.warn{background:var(--yellow);box-shadow:0 0 6px var(--yellow)}
+.hit-status .sd.bad{background:var(--red);box-shadow:0 0 6px var(--red);animation:pulse-red 2s ease-in-out infinite}
+.hit-rate-bar{height:4px;border-radius:2px;background:rgba(25,28,50,.5);overflow:hidden;width:100%;margin-top:4px}
+.hit-rate-bar .fill{height:100%;border-radius:2px;transition:width .8s ease,background .5s ease}
+.hit-rate-bar .fill.good{background:var(--green)}
+.hit-rate-bar .fill.warn{background:var(--yellow)}
+.hit-rate-bar .fill.bad{background:var(--red)}
+.hit-rate-text{font-size:.6rem;color:var(--muted);margin-top:2px}
+
+.theme-btn{background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:.62rem;padding:3px 8px;border-radius:10px;font-family:inherit;transition:all .2s;margin-left:8px}
+.theme-btn:hover{color:var(--text);border-color:var(--accent)}
+
+[data-theme="light"] .hero .number{background:linear-gradient(180deg,#1e293b 0%,#475569 45%,#6366f1 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+[data-theme="light"] .status-bar span[style]{color:#64748b!important}
+[data-theme="light"] .toast{background:rgba(255,255,255,.92);border-left:3px solid var(--accent)}
+[data-theme="light"] .sync-row button:hover{color:#1e293b}
+[data-theme="light"] .cache-bar{background:rgba(226,232,240,.5)}
+[data-theme="light"] .hit-rate-bar{background:rgba(226,232,240,.5)}
+
+[data-theme="light"] .daily-up{color:#166534!important}
+[data-theme="light"] .status-dot.online{background:#166534!important;box-shadow:0 0 8px #166534!important}
+
+.c-g{color:var(--green)}.c-r{color:var(--red)}.c-y{color:var(--yellow)}.c-b{color:var(--blue)}.c-m{color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="offline">
-  <div class="card">
-    <div class="icon">📊</div>
-    <h1>Token Monitor</h1>
-    <p class="sub">实时监控 DeepSeek API Token 消耗</p>
-    <div class="steps">
-      <p><span>1</span>运行一次 <b>setup.bat</b></p>
-      <p><span>2</span>打开 <b>localhost:3000</b> 配置 DeepSeek API</p>
-      <p><span>3</span>壁纸自动跳转完整界面</p>
-    </div>
-    <p class="link">https://github.com/RichardDou88/deepseek-token-monitor/releases/latest</p>
-    <div class="status"><span class="dot"></span>等待后端连接...（每5秒自动重试）</div>
-  </div>
+<canvas id="particles"></canvas>
+<div class="status-bar"><span class="status-dot reconnecting" id="statusDot"></span><span id="statusText">连接中...</span><span style="opacity:.7;color:#a0a8c0" id="statusTime"></span><button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="切换主题">🌙</button></div>
+<div class="toast" id="toast"></div>
+
+<div class="cache-warn" id="cacheWarn"><span id="cacheWarnIcon"></span><span id="cacheWarnText"></span></div>
+<div class="main-container">
+<div id="wallpaperView" style="display:flex;flex-direction:column;align-items:center;gap:16px">
+<div class="card hero">
+<div class="provider"><span class="dot"></span><span id="providerName">DeepSeek</span><span id="providerModel" style="opacity:.5;font-size:.7rem;letter-spacing:.1em"></span></div>
+<div><span class="number" id="mainNumber">--</span><span class="number-unit" id="mainUnit"></span></div>
+<div class="label" id="monthLabel">本月 Token 用量</div>
+<div class="balance-row"><span id="balanceInfo"></span><span id="estimateInfo"></span></div>
+<div class="sub-label" id="dataSource" style="display:none"></div>
+
+</div>
+<div class="card daily-card">
+<div class="daily-item"><span class="dl">今日用量</span><span class="dv" style="color:var(--blue)" id="dailyTokens">--</span><span id="dailyTokensCmp" style="display:none"></span></div>
+<div class="daily-div"></div>
+<div class="daily-item"><span class="dl">今日消费</span><span class="dv" style="color:var(--yellow)" id="dailyCost">--</span><span id="dailyCostCmp" style="display:none"></span></div>
+<div class="daily-div"></div>
+<div class="daily-item" style="min-width:140px"><span class="dl">今日命中率</span><span class="dv" style="color:var(--green)" id="dailyHitRate">--</span><div class="hit-status" id="hitStatus"><span class="sd good" id="hitStatusDot"></span><span id="hitStatusText" style="color:var(--muted)">--</span></div><span id="dailyHitCmp" style="display:none"></span><div class="hit-rate-bar"><div class="fill good" id="hitRateBar" style="width:0%"></div></div></div>
+</div>
+<div class="card metrics"><div><span class="gl" style="display:block;text-align:center;margin-bottom:6px">调用次数</span><span class="vv" style="color:var(--cyan)" id="statCalls">-</span></div><div class="vd"></div><div class="mr"><div class="m"><span class="vs" style="color:var(--blue)" id="statIn">0</span><span class="lb">输入</span></div><div class="m"><span class="vs" style="color:var(--orange)" id="statOut">0</span><span class="lb">输出</span></div></div><div class="vd"></div><div><span class="gl" style="display:block;text-align:center;margin-bottom:6px">本月费用</span><span class="vv" style="color:var(--yellow)" id="statCost">¥0</span></div></div>
+<div class="card metrics2"><div><span class="gl" style="display:block;text-align:center;margin-bottom:4px">缓存命中</span><span class="vs" style="color:var(--green)" id="statHit">0</span></div><div><span class="gl" style="display:block;text-align:center;margin-bottom:4px">未命中</span><span class="vs" style="color:var(--orange)" id="statMiss">0</span></div><div><span class="gl" style="display:block;text-align:center;margin-bottom:4px">命中率</span><span class="vs" style="color:var(--pink)" id="statRate">0%</span></div><div><div class="cache-bar-wrap"><div class="cache-bar"><div class="hit" id="cacheBarHit" style="width:0%"></div><div class="miss" id="cacheBarMiss" style="width:100%"></div></div></div></div></div>
+<div class="card" style="padding:10px 32px;font-size:.58rem;color:var(--muted);display:flex;gap:20px" id="modelCosts"></div>
+<div class="sync-row"><button id="btnSync">同步平台</button><span class="synced" id="syncStatus"></span><span class="synced" id="lastUpdate" style="margin-left:12px">等待数据...</span></div>
+</div>
+<div class="config-page card" id="configView" style="min-width:420px">
+<h2>配置服务商</h2><p id="configMsg">请填写 API 信息</p>
+<div class="fields">
+<input type="text" id="cfgName" placeholder="名称 (如 DeepSeek)">
+<input type="text" id="cfgUrl" placeholder="API 地址 (输入后自动识别)" oninput="onUrlChange()">
+<input type="password" id="cfgKey" placeholder="API Key">
+<input type="text" id="cfgModel" placeholder="模型">
+<input type="password" id="cfgPlatformToken" placeholder="Platform Token（可自动获取）">
+<div style="display:flex;gap:8px;align-items:center;margin-top:4px"><button class="secondary" onclick="showBookmarkGuide()" style="font-size:.75rem;padding:6px 14px">一键获取 Token</button><button class="secondary" onclick="autoLogin()" style="font-size:.75rem;padding:6px 14px">自动获取 Token</button><span style="font-size:.6rem;color:#4b5563">无需手动复制</span></div>
+<div class="row"><input type="number" id="cfgInputPrice" placeholder="输入 ¥/M" step="any"><input type="number" id="cfgOutputPrice" placeholder="输出 ¥/M" step="any"><input type="number" id="cfgHitPrice" placeholder="命中 ¥/M" step="any"></div>
+</div>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:4px"><button onclick="saveConfig()">保存</button><button class="secondary" onclick="fetchAutoPricing()">获取价格</button></div>
+<p id="cfgStatus" style="font-size:.72rem;color:#8b91a0;margin-top:4px"></p>
+</div>
 </div>
 <script>
-(function check(){
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://localhost:3000/api/providers', true);
-  xhr.timeout = 3000;
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      window.location.replace('http://localhost:3000/wallpaper');
-    }
-  };
-  xhr.onerror = xhr.ontimeout = function() {};
-  setTimeout(check, 5000);
+
+// Theme toggle
+(function(){
+  var saved=localStorage.getItem("token-monitor-theme")||"dark";
+  document.documentElement.setAttribute("data-theme",saved);
+  updateThemeBtn(saved);
 })();
+function toggleTheme(){
+  var cur=document.documentElement.getAttribute("data-theme")||"dark";
+  var next=cur==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",next);
+  localStorage.setItem("token-monitor-theme",next);
+  updateThemeBtn(next);
+}
+function updateThemeBtn(t){
+  var b=document.getElementById("themeBtn");
+  if(!b)return;
+  if(t==="light"){b.textContent="\u2600\uFE0F";b.title="切换深色主题"}
+  else{b.textContent="\uD83C\uDF19";b.title="切换浅色主题"}
+}
+(function(){var c=document.getElementById("particles"),ctx=c.getContext("2d");var ps=[],w,h;function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener("resize",rs);for(var i=0;i<45;i++)ps.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.6+.3,vx:(Math.random()-.5)*.1,vy:(Math.random()-.5)*.1});function dr(){ctx.clearRect(0,0,w,h);for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(139,92,246,"+(.06+p.r*.04)+")";ctx.fill()}}setInterval(dr,33)})();
+// Keep-alive heartbeat to prevent Lively WebView sleep
+function heartbeat(){var hb=document.getElementById("statusTime");if(hb){var v=hb.textContent;hb.textContent=v}setTimeout(heartbeat,5000)}heartbeat();setInterval(function(){document.getElementById("statusTime").textContent=new Date().toTimeString().substring(0,8)},1000);
+var cp=null,pu=null,upf=false,pt=-1,cs="reconnecting",cf=0,lo=null;
+function setStatus(s,m){cs=s;document.getElementById("statusDot").className="status-dot "+s;document.getElementById("statusText").textContent=m||s;if(s==="online"){document.getElementById("statusTime").textContent=new Date().toTimeString().substring(0,8);cf=0}}
+async function tryFetch(u,o){o=o||{};try{var r=await Promise.race([fetch(u,Object.assign({},o)),new Promise(function(_,rj){return setTimeout(function(){return rj(new Error("timeout"))},8000)})]);if(!r.ok)throw new Error("HTTP "+r.status);var d=await r.json();setStatus("online","在线");lo=Date.now();return d}catch(e){cf++;if(e.name==="TypeError"||(e.message||"").indexOf("fetch")>=0||(e.message||"").indexOf("Network")>=0)setStatus("offline","离线");else if((e.message||"").indexOf("timeout")>=0)setStatus("offline","超时");else setStatus("offline","错误");if(cf>3)setTimeout(reconnect,5000);return null}}
+async function reconnect(){setStatus("reconnecting","重连中...");var p=await tryFetch("/api/providers");if(!p||!p.length)return;cp=p[0];var d=await tryFetch("/api/provider-usage/"+cp.id+"?force=true");if(d&&d.source){renderPlatform(d);setStatus("online","在线");document.getElementById("syncStatus").textContent="已重连";document.getElementById("syncStatus").className="synced c-g"}}
+function fmtNum(n){n=Number(n)||0;if(n>=1e10)return{val:(n/1e10).toFixed(2),unit:"百亿"};if(n>=1e8)return{val:(n/1e8).toFixed(2),unit:"亿"};if(n>=1e6)return{val:(n/1e6).toFixed(2),unit:"百万"};if(n>=1e4)return{val:(n/1e4).toFixed(2),unit:"万"};return{val:n.toLocaleString(),unit:""}}
+function fmtCostShort(v){v=Number(v)||0;if(v>=10000)return"¥"+(v/10000).toFixed(1)+"万";return"¥"+v.toFixed(2)}
+function tn(t){document.getElementById("toast").textContent=t;document.getElementById("toast").classList.add("show");setTimeout(function(){document.getElementById("toast").classList.remove("show")},3000)}
+
+var lastDaily = null;
+async function fetchDailyUsage(){
+  if(!cp||!cp.id)return;
+  try{
+    var r=await tryFetch("/api/daily-usage/"+cp.id);
+    if(!r)return;
+    lastDaily=r;
+    updateDailyDisplay(r);
+  }catch(e){}
+}
+function updateDailyDisplay(d){
+  if(!d)return;
+  var dtEl=document.getElementById("dailyTokens");
+  var dcEl=document.getElementById("dailyCost");
+  var dtCmp=document.getElementById("dailyTokensCmp");
+  var dcCmp=document.getElementById("dailyCostCmp");
+  var hrEl=document.getElementById("dailyHitRate");
+  var hrCmp=document.getElementById("dailyHitCmp");
+  var hrBar=document.getElementById("hitRateBar");
+  var hsDot=document.getElementById("hitStatusDot");
+  var hsTxt=document.getElementById("hitStatusText");
+  if(!dtEl)return;try{document.getElementById("lastUpdate").textContent="今日更新: "+new Date().toLocaleTimeString();}catch(e){}
+  dtCmp.style.display="";dcCmp.style.display="";if(hrCmp)hrCmp.style.display="";
+  var dfv=fmtNum(d.dailyTokens||0);dtEl.textContent=dfv.val;if(dfv.unit)dtEl.textContent+=" "+dfv.unit;
+  dcEl.textContent="\u00A5"+((d.dailyCost||0).toFixed(2));
+  
+  // Cache hit rate + inline status
+  var hr=d.cacheHitRate||0;
+  if(hrEl){hrEl.textContent=hr.toFixed(2)+"%";hrEl.className="dv";hrEl.classList.add(hr>=95?"c-g":hr>=90?"c-y":"c-r")}
+  if(hrBar){hrBar.style.width=hr+"%";hrBar.className="fill "+(hr>=95?"good":hr>=90?"warn":"bad")}
+  if(hsDot&&hsTxt){
+    if(hr>=95){hsDot.className="sd good";hsTxt.textContent="正常";hsTxt.className="c-g"}
+    else if(hr>=90){hsDot.className="sd warn";hsTxt.textContent="注意";hsTxt.className="c-y"}
+    else{hsDot.className="sd bad";hsTxt.textContent="警告";hsTxt.className="c-r"}
+  }
+  if(hrCmp&&d.hitRateChange!==undefined){
+    var hrc=d.hitRateChange;var hCls=hrc>0?"daily-up":hrc<0?"daily-down":"daily-flat";
+    var hArrow=hrc>0?'\u2191 ':hrc<0?'\u2193 ':'';hrCmp.innerHTML='<span class="daily-compare '+hCls+'">'+hArrow+Math.abs(hrc).toFixed(2)+"%</span>";
+  }
+  
+  if(d.firstDay){
+    dtCmp.innerHTML='<span class="daily-first">本月第一天</span>';
+    dcCmp.innerHTML='<span class="daily-first">本月第一天</span>';
+  }else if(d.comparison){
+    var tc=d.comparison.tokensChange,cc=d.comparison.costChange;
+    var tCls=tc>0?"daily-up":tc<0?"daily-down":"daily-flat";
+    var cCls=cc>0?"daily-up":cc<0?"daily-down":"daily-flat";
+    var tArrow=tc>0?'\u2191 ':tc<0?'\u2193 ':'\u2192 ';
+    var cArrow=cc>0?'\u2191 ':cc<0?'\u2193 ':'\u2192 ';
+    dtCmp.innerHTML='<span class="daily-compare '+tCls+'">'+tArrow+Math.abs(tc).toFixed(1)+"%</span>";
+    dcCmp.innerHTML='<span class="daily-compare '+cCls+'">'+cArrow+Math.abs(cc).toFixed(1)+"%</span>";
+  }else{
+    dtCmp.innerHTML='<span class="daily-flat daily-compare">--</span>';
+    dcCmp.innerHTML='<span class="daily-flat daily-compare">--</span>';
+  }
+}
+function renderPlatform(d){if(!d)return;upf=true;pu=d;var fv=fmtNum(d.totalTokens||d.monthlyUsageTokens||0);document.getElementById("mainNumber").textContent=fv.val;document.getElementById("mainUnit").textContent=fv.unit;pt=d.totalTokens||d.monthlyUsageTokens||0;document.getElementById("monthLabel").textContent="本月 Token 总用量";document.getElementById("dataSource").textContent="来源: "+d.source;document.getElementById("dataSource").style.display="";var bal=[];if(d.balance!=null)bal.push("余额 ¥"+Number(d.balance).toFixed(2));if(d.estimatedRemainingTokens){var ev=fmtNum(d.estimatedRemainingTokens);bal.push("≈"+ev.val+ev.unit+" 剩余")}document.getElementById("balanceInfo").textContent=bal.join("  |  ");document.getElementById("statCalls").textContent=(d.totalRequests||"-").toLocaleString();document.getElementById("statIn").textContent=fmtNum(d.totalPrompt||0).val+fmtNum(d.totalPrompt||0).unit;document.getElementById("statOut").textContent=fmtNum(d.totalCompletion||0).val+fmtNum(d.totalCompletion||0).unit;document.getElementById("statCost").textContent=fmtCostShort(d.cost||0);var hit=d.totalCacheHit||0,miss=d.totalCacheMiss||0,tot=(hit+miss)||1;document.getElementById("statHit").textContent=fmtNum(hit).val+fmtNum(hit).unit;document.getElementById("statMiss").textContent=fmtNum(miss).val+fmtNum(miss).unit;document.getElementById("statRate").textContent=Math.round((hit/tot)*100)+"%";document.getElementById("cacheBarHit").style.width=Math.round((hit/tot)*100)+"%";document.getElementById("cacheBarMiss").style.width=Math.round((miss/tot)*100)+"%";var mc=document.getElementById("modelCosts");if(d.modelCosts&&d.modelCosts.length>0){mc.innerHTML="";for(var i=0;i<d.modelCosts.length;i++){var m=d.modelCosts[i];if(m.cost>0)mc.innerHTML+="<span>"+m.model+': <span style="color:var(--yellow)">¥'+m.cost.toFixed(2)+"</span></span>  "}}else mc.innerHTML="";if(d.fetchedAt){var t=new Date(d.fetchedAt);document.getElementById("lastUpdate").textContent="更新: "+(t.getMonth()+1)+"/"+t.getDate()+" "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0")+":"+String(t.getSeconds()).padStart(2,"0")}else{document.getElementById("lastUpdate").textContent=""}}
+function renderProxy(d){if(!d||!d.records||(upf&&pu))return;var m=d.monthly||{calls:0,totalPrompt:0,totalCompletion:0,totalTokens:0,totalCacheHit:0,totalCacheMiss:0,totalCost:0};var fv=fmtNum(m.totalTokens);document.getElementById("mainNumber").textContent=fv.val;document.getElementById("mainUnit").textContent=fv.unit;pt=m.totalTokens;document.getElementById("monthLabel").textContent="本月 Token (代理)";document.getElementById("dataSource").style.display="none";document.getElementById("balanceInfo").textContent="";document.getElementById("statCalls").textContent=m.calls.toLocaleString();document.getElementById("statIn").textContent=fmtNum(m.totalPrompt).val+fmtNum(m.totalPrompt).unit;document.getElementById("statOut").textContent=fmtNum(m.totalCompletion).val+fmtNum(m.totalCompletion).unit;document.getElementById("statCost").textContent=fmtCostShort(m.totalCost||0);var hit=m.totalCacheHit||0,miss=m.totalCacheMiss||0,tot=(hit+miss)||1;document.getElementById("statHit").textContent=fmtNum(hit).val+fmtNum(hit).unit;document.getElementById("statMiss").textContent=fmtNum(miss).val+fmtNum(miss).unit;document.getElementById("statRate").textContent=Math.round((hit/tot)*100)+"%";document.getElementById("cacheBarHit").style.width=Math.round((hit/tot)*100)+"%";document.getElementById("cacheBarMiss").style.width=Math.round((miss/tot)*100)+"%";document.getElementById("modelCosts").innerHTML=""}
+async function fu(){return await tryFetch("/api/usage")}
+async function fp(){try{var p=await tryFetch("/api/providers");cp=p?p[0]:null;return cp}catch(e){return null}}
+async function syncFromPlatform(){var el=document.getElementById("syncStatus");el.textContent="同步中...";el.className="synced c-m";var p=await fp();if(!p){el.textContent="无服务商";el.className="synced c-r";return}var d=await tryFetch("/api/provider-usage/"+p.id+"?force=true");if(d&&d.source){renderPlatform(d);el.textContent="已同步";el.className="synced c-g";await fetchDailyUsage()}else if(d&&!d.source){el.textContent="Token 过期";el.className="synced c-r";setStatus("expired","Token 已过期")}else{el.textContent="同步失败";el.className="synced c-r";setStatus("offline","同步失败")}}
+async function loadProviders(){cp=await fp();if(cp){document.getElementById("providerName").textContent=cp.name;document.getElementById("providerModel").textContent="· "+cp.model;document.getElementById("providerModel").style.display=""}}
+async function loop(){if(!upf||!pu||cs!=="online"){var d=await fu();if(d)renderProxy(d)}}
+function showConfig(m){document.getElementById("wallpaperView").style.display="none";document.getElementById("configView").style.display="flex";if(m)document.getElementById("configMsg").textContent=m}
+function showWallpaper(){document.getElementById("configView").style.display="none";document.getElementById("wallpaperView").style.display="flex"}
+function onUrlChange(){var u=document.getElementById("cfgUrl").value.trim();if(u.length<10)return;document.getElementById("cfgStatus").textContent="识别中...";document.getElementById("cfgStatus").style.color="#8b91a0";fetch("/api/auto-config?url="+encodeURIComponent(u)).then(function(r){return r.json()}).then(function(d){if(d.detected){document.getElementById("cfgName").value=d.name||"";document.getElementById("cfgModel").value=(d.models||[])[0]||"";document.getElementById("cfgStatus").textContent="识别为 "+d.name;document.getElementById("cfgStatus").className="c-g";if(d.pricing&&d.pricing.recommended){var p=d.pricing.recommended;document.getElementById("cfgInputPrice").value=p.inputPrice||"";document.getElementById("cfgOutputPrice").value=p.outputPrice||"";if(p.cacheHitPrice)document.getElementById("cfgHitPrice").value=p.cacheHitPrice;document.getElementById("cfgStatus").textContent+=" · 价格已自动填充"}}else{document.getElementById("cfgStatus").textContent="未识别的服务商";document.getElementById("cfgStatus").style.color="#fb923c"}}).catch(function(){})}
+function showBookmarkGuide(){var bm=document.getElementById("bmData").href;var html='<div style="position:fixed;inset:0;z-index:10;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center"><div class="card" style="max-width:500px;text-align:left;font-size:.75rem;line-height:1.6">';html+='<h2 style="margin-bottom:12px">一键获取 Platform Token</h2>';html+='<ol style="padding-left:18px;color:var(--text)">';html+='<li>点击下方按钮打开 <b>platform.deepseek.com</b> 并登录</li>';html+='<li>登录后，<b>将此链接拖到浏览器书签栏</b>：<br><a href="'+bm+'" style="display:inline-block;margin:6px 0;padding:6px 14px;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none;font-size:.8rem">获取 DeepSeek Token</a></li>';html+='<li>在 DeepSeek 平台页面<b>点击刚添加的书签</b></li>';html+='<li>弹出配置成功后关闭此窗口</li>';html+='</ol>';html+='<div style="text-align:center;margin-top:12px">';html+='<button onclick="window.open(\'https://platform.deepseek.com/usage\',\'_blank\')" style="padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.8rem;margin-right:8px">打开 DeepSeek 平台</button>';html+='<button onclick="this.parentElement.parentElement.parentElement.remove();checkAndInit()" style="padding:10px 20px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:.8rem">关闭</button>';html+='</div></div></div>';document.body.insertAdjacentHTML("beforeend",html)}
+async function fetchAutoPricing(){var btn=event.target;btn.textContent="...";btn.disabled=true;try{var r=await fetch("/api/pricing/fetch");var d=await r.json();if(d.results&&d.results.length>0){var p=d.results[0];document.getElementById("cfgInputPrice").value=p.inputPrice;document.getElementById("cfgOutputPrice").value=p.outputPrice;if(p.cacheHitPrice)document.getElementById("cfgHitPrice").value=p.cacheHitPrice;document.getElementById("cfgStatus").textContent="已获取";document.getElementById("cfgStatus").className="c-g"}else{document.getElementById("cfgStatus").textContent="失败"}btn.textContent="获取价格";btn.disabled=false}catch(e){btn.textContent="获取价格";btn.disabled=false}}
+async function saveConfig(){var name=document.getElementById("cfgName").value.trim(),url=document.getElementById("cfgUrl").value.trim(),key=document.getElementById("cfgKey").value.trim(),model=document.getElementById("cfgModel").value.trim()||"default";var ptoken=document.getElementById("cfgPlatformToken").value.trim(),pIn=document.getElementById("cfgInputPrice").value.trim(),pOut=document.getElementById("cfgOutputPrice").value.trim(),pHit=document.getElementById("cfgHitPrice").value.trim();var st=document.getElementById("cfgStatus");if(!name||!url||!key){st.textContent="请填写名称、URL 和 API Key";st.className="c-r";return}var body={name:name,baseUrl:url,apiKey:key,model:model,models:[model],currency:"CNY"};if(ptoken)body.platformToken=ptoken;if(pIn)body.inputPrice=Number(pIn);if(pOut)body.outputPrice=Number(pOut);if(pHit)body.cacheHitPrice=Number(pHit);try{var r=await fetch("/api/providers",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});var d=await r.json();if(d.error){st.textContent=d.error;st.className="c-r";return}st.textContent="配置成功!";st.className="c-g";setTimeout(async function(){await loadProviders();showWallpaper();await checkAndInit()},600)}catch(e){st.textContent="网络错误: "+e.message;st.className="c-r"}}
+async function checkAndInit(){
+  setStatus("reconnecting","连接中...");
+  try {
+    var r = await fetch("/api/providers");
+    var p = await r.json();
+    if(!p||!p.length){showConfig("未配置服务商");setStatus("offline","未配置");return}
+    cp = p[0];
+    showWallpaper();
+    try { document.getElementById("providerName").textContent=cp.name; } catch(e) {}
+    try { document.getElementById("providerModel").textContent="· "+cp.model; } catch(e) {}
+    var r2 = await fetch("/api/provider-usage/"+cp.id+"?force=true");
+    var d = await r2.json();
+    if(d&&d.source){
+      renderPlatform(d);
+      setStatus("online","在线");
+      document.getElementById("syncStatus").textContent="自动同步";
+      document.getElementById("syncStatus").className="synced c-g";
+    } else {
+      setStatus("offline","Platform Token 无效或已过期");
+    }
+  } catch(e) {
+    setStatus("offline","错误: "+e.message);
+  }
+}
+checkAndInit();
+// Bind sync button with debounce to prevent double-clicks
+var syncDebounce=false;document.getElementById("btnSync").addEventListener("click",function(){if(syncDebounce)return;syncDebounce=true;document.getElementById("btnSync").style.opacity=".6";syncFromPlatform().finally(function(){syncDebounce=false;document.getElementById("btnSync").style.opacity="1"})});
+setInterval(async function(){if(document.getElementById("wallpaperView").style.display!=="none"){await loop();fetchDailyUsage();}},5000);setInterval(async function(){if(!cp)return;var d=await tryFetch("/api/provider-usage/"+cp.id+"?force=true");if(d&&d.source)renderPlatform(d)},300000);setInterval(function(){if(cs==="offline"&&(!lo||Date.now()-lo>30000))reconnect()},15000);setInterval(loadProviders,60000);
+
+async function autoLogin(){var st=document.getElementById("cfgStatus");st.textContent="启动浏览器中...";st.style.color="#8b91a0";try{var r=await fetch("/api/auto-login",{method:"POST"});var d=await r.json();if(d.success){st.textContent=d.message;st.className="c-g";setTimeout(function(){st.textContent="等待登录...登录成功后Token将自动保存，数据即将显示";st.style.color="#fbbf24"},1500)}else{st.textContent=d.error||"启动失败";st.className="c-r"}}catch(e){st.textContent="错误: "+e.message;st.className="c-r"}}
 </script>
-</body>
+
+
+
+<a id="bmData" href="javascript:(function(){var t=localStorage.getItem("userToken");if(!t){alert("未找到 userToken");return}try{var v=JSON.parse(t).value;if(v)t=v}catch(e){}fetch("http://localhost:3000/api/platform-token",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:t})}).then(function(r){return r.json()}).then(function(d){if(d.success)alert("Platform Token 已配置成功! "+d.provider);else alert("失败: "+JSON.stringify(d))}).catch(function(e){alert("发送失败，请确认服务已启动")})})();" style="display:none"></a>
+<script>
+(function(){
+  function scale() {
+    var w = window.innerWidth;
+    var scale = Math.max(1, w / 1600);
+    document.documentElement.style.fontSize = (16 * scale) + 'px';
+  }
+  scale();
+  window.addEventListener('resize', scale);
+})();
+</script></body>
 </html>
