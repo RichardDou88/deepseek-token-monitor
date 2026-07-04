@@ -6,32 +6,29 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body,html{width:100%;height:100%;overflow:hidden;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#060810;color:#e0e4f0}
 .offline{display:flex;align-items:center;justify-content:center;height:100vh;text-align:center}
-.card{background:rgba(22,28,48,0.9);border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:40px 48px;max-width:520px}
+.card{background:rgba(22,28,48,0.9);border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:40px 48px;max-width:460px}
 .card .icon{font-size:3rem;margin-bottom:12px}
 .card h1{font-size:1.5rem;color:#818cf8;margin-bottom:6px}
-.card .sub{font-size:.85rem;color:#6b7280;margin-bottom:28px}
-.card .steps{text-align:left;font-size:.8rem;line-height:2;color:#9ca3af;margin-bottom:24px}
-.card .steps span{color:#818cf8;font-weight:bold}
-.card .steps code{background:rgba(99,102,241,0.15);color:#a5b4fc;padding:2px 8px;border-radius:4px;font-size:.75rem}
-.card .steps a{color:#6366f1;text-decoration:underline}
-.card .status{font-size:.7rem;color:#4b5563;margin-top:16px}
-.card .status .dot{display:inline-block;width:6px;height:6px;background:#ef4444;border-radius:50%;animation:blink 2s infinite;margin-right:6px}
+.card .sub{font-size:.85rem;color:#6b7280;margin-bottom:24px}
+.card .info{font-size:.75rem;color:#9ca3af;line-height:1.8}
+.card .info b{color:#a5b4fc}
+.card .status{font-size:.7rem;color:#4b5563;margin-top:20px}
+.card .dot{display:inline-block;width:6px;height:6px;background:#ef4444;border-radius:50%;animation:blink 2s infinite;margin-right:6px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 </style>
 </head>
 <body>
-<div class="offline" id="offline">
+<div class="offline">
   <div class="card">
     <div class="icon">📊</div>
     <h1>DeepSeek Token Monitor</h1>
-    <p class="sub">实时监控 API Token 消耗量 · 费用 · 缓存命中率</p>
-    <div class="steps">
-      <p><span>🔧 配置后端服务（3 步）：</span></p>
-      <p>1. 下载后端包：<br>　 <a href="#" onclick="window.open('https://github.com/RichardDou88/deepseek-token-monitor/releases/download/v2.0/Token-Monitor-v2.0.zip','_blank');return false" style="color:#818cf8">GitHub Release（点此下载）</a></p>
-      <p>2. 解压后双击运行 <code>setup.bat</code>（需 Node.js）<br>　 如未安装 Node.js：<a href="https://nodejs.org/zh-cn/download/">nodejs.org</a></p>
-      <p>3. 双击 <code>start.bat</code> 启动服务<br>　 浏览器打开 <code>http://localhost:3000</code> 配置 DeepSeek API</p>
+    <p class="sub">后端服务未启动</p>
+    <div class="info">
+      <p>请查看 <b>GitHub README</b> 配置后端：</p>
+      <p style="color:#6366f1;margin:8px 0">github.com/RichardDou88/deepseek-token-monitor</p>
+      <p>或查看 <b>Steam Workshop 页面描述</b></p>
     </div>
-    <div class="status"><span class="dot"></span> 等待后端连接...（每 5 秒自动重试）</div>
+    <div class="status"><span class="dot"></span> 等待后端连接...（每5秒自动重试）</div>
   </div>
 </div>
 <script>
